@@ -31,11 +31,10 @@ def page2():
     tableNameLabel.grid(padx=10, pady=10, row=1, column=0)
 
     tableNameinput = CTkEntry(constraintFrame, placeholder_text = 'STUDENT')
-    tableNameinput.grid(padx=0, pady=0, row=1, column=3)
+    tableNameinput.grid(padx=10, pady=10, row=1, column=3)
 
-
-    
-
+    constraintsLabel = CTkLabel(constraintFrame, text='Enter Table Constraints :', font=CTkFont(size=15, weight="bold"))
+    constraintsLabel.grid(padx=20, pady=20, row=2, column=0) 
 
 # def remove_garbage(text, garbage_list):
 #     for char in garbage_list:
