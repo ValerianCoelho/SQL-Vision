@@ -1,21 +1,57 @@
-import pytesseract as tess
-tess.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-from PIL import Image
+import os
+import Color
+from Extractor import Extract_Table
+from Table import Display_Table
+from Query import Create_Table_Query, Fill_Table_Query
 
-def remove_garbage(text, garbage_list):
-    for char in garbage_list:
-        text = text.replace(char, '')
-    return text.replace('. ', ' ')
+path = input('Enter the Path of the Image : ')
+data = Extract_Table(path)
+table_name = input('Enter the table name : ')
 
-img = Image.open('./Image_Test_1.png')
-data = tess.image_to_string(img)
+os.system('cls')
 
-data = remove_garbage(data, '=#«»|')
-data = data.split('\n')
-data = list(filter(lambda x: x!='', data))
+column_names = data[0]
+data_types = []
+constraints = []
 
-for i in range(len(data)):
-    data[i] = data[i].split(' ')
-    data[i] = list(filter(lambda x: x!='', data[i]))
+print('Fill in the column Data-Type and column constraints:-')
 
-print(data)
+for column in column_names:
+    print(Color.green, f'{column}:-', Color.reset, sep='')
+    data_type = input('Data Type : ')
+    constraint = input('Constraint : ')
+
+    data_types.append(data_type)
+    constraints.append(constraint)
+
+while True:
+    os.system('cls')
+    Display_Table(data)
+    print("If you are satisfied with the table click 'Enter'")
+    print('If not enter the cell coord you wish to alter')
+    cell = input('Coordinates (seperated by a comma) : ').replace(' ', '')
+    if not cell:
+        break
+    else:
+        try:
+            cell_x, cell_y = cell.split(',')
+        except:
+            print(Color.red, 'Invalid Coordinates, Press Enter', Color.reset, sep='', end=' ')
+            input()
+            continue
+        new_entry = input(f'Enter the Cell data for cell ({cell_x}, {cell_y}) : ')
+        try:
+            data[int(cell_x)][int(cell_y)] = new_entry
+        except:
+            print(Color.red, 'Table index out of Bounds, Press Enter', Color.reset, sep='', end=' ')
+            input()
+
+os.system('cls')
+
+print(Color.green, 'CREATE TABLE QUERY:-', Color.reset, sep='')
+print(Create_Table_Query(table_name, column_names, data_types, constraints))
+
+print(Color.green, '\nFILL TABLE QUERY:-', Color.reset, sep='')
+print(Fill_Table_Query(table_name, data))
+
+os.system('pause')
