@@ -12,13 +12,18 @@ except:
     print(Color.red, 'File Type Not Supported', Color.reset, sep='')
     os.system('pause')
     exit(0)
-table_name = input('Enter the table name : ')
 
-os.system('cls')
-
-column_names = data[0]
+try:
+    column_names = data[0]
+except:
+    print(Color.red, 'Extraction Failed', Color.reset, sep='')
+    os.system('pause')
+    exit(0)
 data_types = []
 constraints = []
+
+table_name = input('Enter the table name : ')
+os.system('cls')
 
 print('Fill in the column Data-Type and column constraints:-')
 
