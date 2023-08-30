@@ -4,6 +4,9 @@ from Extractor import Extract_Table
 from Table import Display_Table
 from Query import Create_Table_Query, Fill_Table_Query
 
+print('Launching Application')
+os.system('cls')
+
 while True:
     print(Color.green, 'Welcome to SQL Vision', Color.reset, sep='')
     print('1) About\n2) Start Application')
