@@ -6,12 +6,7 @@ from Query import Create_Table_Query, Fill_Table_Query
 
 print(Color.green, 'Welcome to SQL Vision', Color.reset, sep='')
 path = input('Enter the Path of the Image : ')
-try:
-    data = Extract_Table(path)
-except:
-    print(Color.red, 'File Type Not Supported', Color.reset, sep='')
-    os.system('pause')
-    exit(0)
+data = Extract_Table(path)
 
 try:
     column_names = data[0]
@@ -19,6 +14,7 @@ except:
     print(Color.red, 'Extraction Failed', Color.reset, sep='')
     os.system('pause')
     exit(0)
+    
 data_types = []
 constraints = []
 
